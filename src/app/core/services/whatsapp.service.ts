@@ -3,8 +3,7 @@ import { CartItem } from '../models/cart-item.model';
 
 @Injectable({ providedIn: 'root' })
 export class WhatsappService {
-  // ⚠️ Reemplaza con el número real (código de país sin + ni espacios)
-  readonly WHATSAPP_NUMBER = '573000000000';
+  readonly WHATSAPP_NUMBER = '573226257413';
 
   openCatalogChat(): void {
     const msg = encodeURIComponent(

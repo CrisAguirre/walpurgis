@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, QueryList, ViewChildren, ElementRef } from '@angular/core';
 import { PRODUCTS } from '../../data/products.data';
 import { Product, Category } from '../../core/models/product.model';
 
@@ -14,7 +14,9 @@ interface Slide {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  @ViewChildren('slideVideo') videoElements!: QueryList<ElementRef<HTMLVideoElement>>;
 
   slides: Slide[] = [
     {
@@ -30,28 +32,28 @@ export class HomeComponent implements OnInit, OnDestroy {
       subtitle: 'Joyería Oscura',
     },
     {
-      type: 'image',
-      src: 'assets/slider home/theme_1.jpg',
+      type: 'video',
+      src: 'assets/videos slider/wv_2.mp4',
       title: 'Tu Esencia No Necesita Permiso',
       subtitle: 'Accesorios Únicos',
     },
     {
-      type: 'image',
-      src: 'assets/slider home/theme_2.jpg',
-      title: 'Cada Pieza Cuenta una Historia',
-      subtitle: 'Walpurgis Store',
-    },
-    {
       type: 'video',
-      src: 'assets/videos slider/wv_2.mp4',
+      src: 'assets/videos slider/wv_3.mp4',
       title: 'Forjado en las Sombras, Hecho Para Ti',
       subtitle: 'Diseño Exclusivo',
     },
     {
-      type: 'image',
-      src: 'assets/slider home/theme_3.jpg',
+      type: 'video',
+      src: 'assets/videos slider/Video_Walpurgis_Night_Generado.mp4',
       title: 'Lo Oscuro También Es Bello',
       subtitle: 'Colección Gótica',
+    },
+    {
+      type: 'image',
+      src: 'assets/slider home/theme_1.jpg',
+      title: 'Cada Pieza Cuenta una Historia',
+      subtitle: 'Walpurgis Store',
     },
   ];
 
@@ -66,7 +68,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.filterProducts();
-    this.startAutoPlay();
+  }
+
+  ngAfterViewInit(): void {
+    // Pequeño delay para que el DOM esté listo
+    setTimeout(() => {
+      this.playActiveVideo();
+      this.startAutoPlay();
+    }, 300);
   }
 
   ngOnDestroy(): void {
@@ -74,24 +83,43 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   startAutoPlay(): void {
-    this.slideInterval = setInterval(() => this.nextSlideBtn(), 5500);
+    this.slideInterval = setInterval(() => this.nextSlideBtn(), 6000);
+  }
+
+  private playActiveVideo(): void {
+    if (!this.videoElements) return;
+    this.videoElements.toArray().forEach((ref, index) => {
+      const video = ref.nativeElement;
+      if (index === this.activeSlide) {
+        video.currentTime = 0;
+        video.play().catch(() => {/* autoplay policy */});
+      } else {
+        video.pause();
+        video.currentTime = 0;
+      }
+    });
   }
 
   nextSlideBtn(): void {
     this.prevSlide = this.activeSlide;
     this.activeSlide = (this.activeSlide + 1) % this.slides.length;
+    setTimeout(() => this.playActiveVideo(), 50);
   }
 
   prevSlideBtn(): void {
     this.prevSlide = this.activeSlide;
     this.activeSlide = (this.activeSlide - 1 + this.slides.length) % this.slides.length;
+    setTimeout(() => this.playActiveVideo(), 50);
   }
 
   goToSlide(i: number): void {
     this.prevSlide = this.activeSlide;
     this.activeSlide = i;
     clearInterval(this.slideInterval);
-    this.startAutoPlay();
+    setTimeout(() => {
+      this.playActiveVideo();
+      this.startAutoPlay();
+    }, 50);
   }
 
   selectCategory(cat: Category): void {

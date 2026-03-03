@@ -5,21 +5,28 @@
       class="hero-slide"
       *ngFor="let slide of slides; let i = index"
       [class.active]="i === activeSlide"
-      [class.prev]="i === prevSlide"
     >
+      <!-- VIDEO: referencia #slideVideo solo en slides de tipo video -->
       <video
         *ngIf="slide.type === 'video'"
+        #slideVideo
         [src]="slide.src"
-        autoplay muted loop playsinline
+        muted
+        loop
+        playsinline
+        preload="auto"
         class="hero-media"
       ></video>
+
       <img
         *ngIf="slide.type === 'image'"
         [src]="slide.src"
         [alt]="slide.title"
         class="hero-media"
       />
+
       <div class="hero-overlay"></div>
+
       <div class="hero-content" [class.visible]="i === activeSlide">
         <p class="hero-sub">{{ slide.subtitle }}</p>
         <h1 class="hero-title">{{ slide.title }}</h1>
@@ -72,7 +79,6 @@
         [product]="p"
       ></app-product-card>
     </div>
-
     <div class="empty-state" *ngIf="filteredProducts.length === 0">
       <p>No hay productos en esta categoría aún.</p>
     </div>
