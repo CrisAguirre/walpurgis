@@ -1,0 +1,36 @@
+<div class="product-card" (mouseenter)="hovered=true" (mouseleave)="hovered=false">
+  <div class="card-image-wrap">
+    <img
+      [src]="product.images[hovered && product.images.length > 1 ? 1 : 0]"
+      [alt]="product.shortName"
+      class="card-img"
+      loading="lazy"
+    />
+    <div class="card-overlay">
+      <button class="btn-ver" (click)="onView()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+        Ver
+      </button>
+    </div>
+    <span class="badge-featured" *ngIf="product.featured">✦ Destacado</span>
+  </div>
+
+  <div class="card-body">
+    <p class="card-category">{{ product.category }}</p>
+    <h3 class="card-name">{{ product.shortName }}</h3>
+    <p class="card-price">COP ${{ product.price | number:'1.0-0' }}</p>
+    <button class="btn-comprar" (click)="onAddToCart()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15">
+        <path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 01-8 0"/>
+      </svg>
+      Comprar
+    </button>
+  </div>
+
+  <div class="added-toast" [class.show]="justAdded">¡Agregado! 🖤</div>
+</div>

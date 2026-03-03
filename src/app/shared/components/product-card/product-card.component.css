@@ -1,0 +1,149 @@
+.product-card {
+  position: relative;
+  background: #0e0c14;
+  border: 1px solid rgba(180, 130, 80, 0.12);
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  overflow: hidden;
+}
+
+.product-card:hover {
+  border-color: rgba(180, 130, 80, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 20px rgba(180,130,80,0.06);
+}
+
+.card-image-wrap {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #08060c;
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  display: block;
+}
+
+.product-card:hover .card-img {
+  transform: scale(1.04);
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8,6,12,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.product-card:hover .card-overlay { opacity: 1; }
+
+.btn-ver {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(8,6,12,0.8);
+  border: 1px solid rgba(180,130,80,0.5);
+  color: #dcc8af;
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  padding: 0.5rem 1.1rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background 0.3s, color 0.3s;
+}
+.btn-ver:hover {
+  background: rgba(180,130,80,0.2);
+  color: #b48250;
+}
+
+.badge-featured {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(180,130,80,0.9);
+  color: #0a0810;
+  font-size: 0.6rem;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  font-weight: 700;
+}
+
+.card-body {
+  padding: 0.85rem 1rem 1rem;
+}
+
+.card-category {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(180,130,80,0.7);
+  font-family: 'Cinzel', serif;
+  margin: 0 0 4px;
+}
+
+.card-name {
+  font-size: 0.82rem;
+  font-family: 'Cinzel', serif;
+  color: #dcc8af;
+  margin: 0 0 8px;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-price {
+  font-size: 0.9rem;
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  color: #b48250;
+  margin: 0 0 12px;
+}
+
+.btn-comprar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  background: rgba(180,130,80,0.1);
+  border: 1px solid rgba(180,130,80,0.4);
+  color: #dcc8af;
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.6rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-comprar:hover {
+  background: #b48250;
+  color: #0a0810;
+  border-color: #b48250;
+}
+
+.added-toast {
+  position: absolute;
+  bottom: 0;
+  left: 0; right: 0;
+  background: rgba(180,130,80,0.95);
+  color: #0a0810;
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 0.5rem;
+  transform: translateY(100%);
+  transition: transform 0.3s;
+}
+.added-toast.show { transform: translateY(0); }

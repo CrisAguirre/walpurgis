@@ -1,1 +1,56 @@
-/* You can add global styles to this file, and also import other style files */
+/* ═══════════════════════════════════════════
+   WALPURGIS STORE — Global Styles
+   ═══════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --gold:     #b48250;
+  --gold-dim: rgba(180,130,80,0.4);
+  --bg:       #08060c;
+  --bg-dark:  #06040a;
+  --bg-card:  #0e0c14;
+  --text:     #dcc8af;
+  --text-dim: rgba(220,200,175,0.55);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* Selection */
+::selection {
+  background: rgba(180,130,80,0.3);
+  color: #f0e8d8;
+}
+
+/* Links */
+a { color: inherit; }
+
+/* Focus */
+button:focus-visible, a:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 2px;
+}

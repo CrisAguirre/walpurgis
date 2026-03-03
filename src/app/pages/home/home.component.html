@@ -1,0 +1,80 @@
+<!-- HERO SLIDER -->
+<section class="hero">
+  <div class="hero-slides">
+    <div
+      class="hero-slide"
+      *ngFor="let slide of slides; let i = index"
+      [class.active]="i === activeSlide"
+      [class.prev]="i === prevSlide"
+    >
+      <video
+        *ngIf="slide.type === 'video'"
+        [src]="slide.src"
+        autoplay muted loop playsinline
+        class="hero-media"
+      ></video>
+      <img
+        *ngIf="slide.type === 'image'"
+        [src]="slide.src"
+        [alt]="slide.title"
+        class="hero-media"
+      />
+      <div class="hero-overlay"></div>
+      <div class="hero-content" [class.visible]="i === activeSlide">
+        <p class="hero-sub">{{ slide.subtitle }}</p>
+        <h1 class="hero-title">{{ slide.title }}</h1>
+        <a href="#catalogo" class="hero-btn">Ver Productos</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controles -->
+  <button class="hero-arrow hero-prev" (click)="prevSlideBtn()" aria-label="Anterior">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+  </button>
+  <button class="hero-arrow hero-next" (click)="nextSlideBtn()" aria-label="Siguiente">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+      <polyline points="9 18 15 12 9 6"/>
+    </svg>
+  </button>
+
+  <div class="hero-dots">
+    <button
+      *ngFor="let s of slides; let i = index"
+      class="hero-dot"
+      [class.active]="i === activeSlide"
+      (click)="goToSlide(i)"
+      [attr.aria-label]="'Slide ' + (i+1)"
+    ></button>
+  </div>
+</section>
+
+<!-- FILTRO CATEGORÍAS -->
+<section class="categories-bar" id="catalogo">
+  <div class="categories-inner">
+    <button
+      *ngFor="let cat of categories"
+      class="cat-btn"
+      [class.active]="selectedCategory === cat"
+      (click)="selectCategory(cat)"
+    >{{ cat }}</button>
+  </div>
+</section>
+
+<!-- CATÁLOGO DE PRODUCTOS -->
+<section class="catalog">
+  <div class="catalog-inner">
+    <div class="products-grid">
+      <app-product-card
+        *ngFor="let p of filteredProducts"
+        [product]="p"
+      ></app-product-card>
+    </div>
+
+    <div class="empty-state" *ngIf="filteredProducts.length === 0">
+      <p>No hay productos en esta categoría aún.</p>
+    </div>
+  </div>
+</section>
